@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知食分子 - 独立全栈产品 | 张驰</title>
+    <style>
+        /* Apple-inspired Soft & Clean Design System */
+        :root {
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --bg-white: #ffffff;
+            --bg-gray: #f5f5f7;
+            --link-blue: #0066cc;
+            --border-soft: rgba(0,0,0,0.06);
+            --accent-soft: #f5f5f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            letter-spacing: -0.015em;
+            overflow-x: hidden;
+        }
+
+        /* 滚动渐显动效 */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 顶部导航 */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 54px;
+            background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; box-shadow: 0 1px 0 var(--border-soft);
+        }
+        .nav-content { width: 100%; max-width: 980px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .nav-brand { font-size: 14px; font-weight: 500; color: var(--text-dark); text-decoration: none; display: flex; align-items: center;}
+        .nav-brand::before { content: "‹"; font-size: 20px; color: var(--text-gray); margin-right: 8px; margin-bottom: 2px;}
+
+        /* Hero 标题区 */
+        .hero { padding: 140px 20px 80px; text-align: center; max-width: 860px; margin: 0 auto; }
+        .hero h1 { font-size: 46px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
+        .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 680px; margin: 0 auto;}
+
+        /* 项目概览 Meta */
+        .meta-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; 
+            max-width: 980px; margin: 0 auto 60px; padding: 32px 40px; 
+            background: #ffffff; border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid var(--border-soft);
+            text-align: left;
+        }
+        .meta-item .label { font-size: 13px; color: var(--text-gray); margin-bottom: 6px; font-weight: 500;}
+        .meta-item .value { font-size: 15px; font-weight: 600; color: var(--text-dark);}
+
+        /* 内容区块与图文左右穿插排版 */
+        .article-section { max-width: 1080px; margin: 0 auto; padding: 60px 24px; }
+        .content-block { display: flex; gap: 60px; align-items: center; }
+        .content-block.reverse { flex-direction: row-reverse; }
+        .text-side { flex: 1.1; }
+        .image-side { flex: 0.9; display: flex; justify-content: center; }
+
+        /* 标题与文字样式 */
+        .section-header { text-align: left; margin-bottom: 20px; }
+        .section-header .tag { font-size: 13px; font-weight: 600; color: var(--link-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; }
+        .section-header h2 { font-size: 30px; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.01em; color: #111;}
+        
+        .text-side p { font-size: 16px; color: var(--text-dark); line-height: 1.7; margin-bottom: 16px; }
+        .text-side p strong { color: #111; font-weight: 600; }
+
+        /* PM 思考卡片 (柔和白底 + 轻微阴影) */
+        .pm-card { 
+            background: #ffffff; padding: 20px 24px; border-radius: 16px; margin: 20px 0; 
+            border: 1px solid var(--border-soft); box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+        .pm-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--link-blue); }
+        .pm-card p { font-size: 14px; color: #444; margin-bottom: 8px; line-height: 1.6; }
+        .pm-card ul { list-style: none; margin-left: 0; }
+        .pm-card li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #444; line-height: 1.6;}
+        .pm-card li::before { content: "•"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
+
+        /* 具体工作细节 (灰底模块) */
+        .pm-actions {
+            background: var(--accent-soft);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+        }
+        .pm-actions h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #111; display: flex; align-items: center;}
+        .pm-actions h4::before { content: ""; display: inline-block; width: 4px; height: 14px; background: var(--link-blue); border-radius: 2px; margin-right: 8px; }
+        .pm-actions ul { list-style: none; }
+        .pm-actions li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; line-height: 1.6; }
+        .pm-actions li::before { content: "-"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
+
+        /* 极致柔和的图片占位符 */
+        .diagram-placeholder {
+            width: 100%; border-radius: 24px; padding: 24px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: var(--bg-gray); 
+            border: 1px solid rgba(0,0,0,0.03); 
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            text-align: center;
+            aspect-ratio: 4 / 3; /* 保证高度一致，视觉统一 */
+            overflow: hidden;
+        }
+        .diagram-guide { font-size: 13px; color: var(--text-gray); width: 100%; }
+        .diagram-guide strong { display: block; margin-bottom: 8px; color: #333; }
+
+        footer { padding: 60px 20px; text-align: center; font-size: 13px; color: var(--text-gray); margin-top: 40px;}
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 17px; }
+            .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; border-radius: 16px;}
+            .content-block { flex-direction: column; gap: 32px; }
+            .content-block.reverse { flex-direction: column; }
+            .diagram-placeholder { aspect-ratio: auto; min-height: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">返回</a>
+        </div>
+    </nav>
+
+    <header class="hero reveal">
+        <h1>知食分子 (SnapCal)</h1>
+        <p>将建筑出身的“工程思维”与大模型技术相结合，我完成了这款产品的全生命周期落地，致力于消除健康管理的执行门槛。</p>
+    </header>
+
+    <div class="meta-grid reveal">
+        <div class="meta-item">
+            <div class="label">项目职责</div>
+            <div class="value">0-1 产品定义 / 全栈开发 / 算法优化</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">核心技术选型</div>
+            <div class="value">GLM-4V 大模型 / FastAPI / 小程序</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">当前状态</div>
+            <div class="value">完成全链路逻辑闭环与落地验证</div>
+        </div>
+    </div>
+
+    <section class="article-section reveal">
+        <div class="content-block">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">0. 商业探索与需求验证</div>
+                    <h2>发现传统记账不可逆的流失瓶颈</h2>
+                </div>
+                <p>在立项前，我深度调研了市面上的头部健康应用（如薄荷健康）。我发现，虽然健康管理是刚需，但记录饮食热量极度“反人类”：用户需要手动搜索食材、寻找重量、回忆配料。这种<strong>高认知负荷的交互</strong>导致了极高的流失率。</p>
+                <p><strong>AI 赋能方案：</strong>我定义产品的切入点为使用 VLM（视觉大模型）实现“拍照即审计”，将“干瘪的数据录入”重塑为“智能对话估算”，极大降低记账摩擦力，提升坚持率。</p>
+                
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>独立完成竞品分析，抽象出“视觉大模型+健康”的最优解法。</li>
+                        <li>规划了健康的商业 ROI 路径：从“基础 AI 识别免费（控制每日 Token 成本）”到“高阶营养师深度报告订阅制 (SaaS)”，再到“健康轻食电商精准分发”。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [对比图]</strong>
+                        左侧放“长表单录入”截图，右侧放“一键拍照”极简截图。<br>背景建议用纯白，去掉生硬边框。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal" style="background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;">
+        <div class="content-block reverse">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">1. 撰写 AI-PRD 与边界定义</div>
+                    <h2>用工程兜底思维抹平大模型的不确定性</h2>
+                </div>
+                <p>在撰写 AI-PRD 时，重点不再是单纯写功能列表，而是<strong>“定义 AI 的边界”与“容错策略”</strong>。通过地毯式扫描用户的背景图片（包含背景残留物、零食、外卖截图），要求 AI 必须以“10年临床营养专家”人设输出标准的非结构化转结构化 JSON 数据。</p>
+                
+                <div class="pm-card">
+                    <h4>产品决策：四级容错兜底机制 (Fallback Strategy)</h4>
+                    <p>面对 VLM 的输出不确定性，我设计了严格的 Fallback 路径：<strong>标准 JSON 解析 -> 正则字符串清洗 (抹平标点错误) -> 暴力正则提取 (抠出热量数字) -> 人在回路纠错重算。</strong>这保证了核心记账流在 API 崩溃时的 100% 畅通。</p>
+                </div>
+
+                <div class="pm-actions" style="background: #ffffff; border: 1px solid var(--border-soft);">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>撰写包含复杂场景用例（标准自炊、外卖截图、非食物拦截）的特殊 AI-PRD。</li>
+                        <li>建立 100 张涵盖多品类的“标准食物测试集”，在迭代 Prompt 时自动化跑测，严密监控模型幻觉率。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder" style="background: #ffffff;">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [逻辑图]</strong>
+                        画一张白底的 Fallback 容错逻辑图：<br>
+                        Level 1 → Level 2 → Level 3 → Level 4 瀑布流。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal">
+        <div class="content-block">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">2. 业务流程与全栈架构设计</div>
+                    <h2>打通“前端-云端-大模型”的数据闭环</h2>
+                </div>
+                <p>为了让产品真正落地，我独立完成了整套业务链路的搭建与后端开发（Python FastAPI）。这一部分工作完美展现了我的工程落地能力：如何将产品逻辑转化为代码逻辑，并考虑到隐私、超时等 PM 核心细节。</p>
+
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li><strong>全栈开发：</strong>独立完成微信小程序前端（压缩图片转 Base64）与 Python 后端的接收、组合 Prompt 与 API 调用。</li>
+                        <li><strong>性能兜底：</strong>在前端强制加入 100KB 图片压缩拦截逻辑，成功避免了原图直接上传导致的大模型接口严重超时。</li>
+                        <li><strong>隐私合规：</strong>在系统层面确保用户上传的真实图片在云端完成脱敏，不用于二次训练。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [架构时序图]</strong>
+                        用极简的块状图展示从“前端触发”到“FastAPI后端”，再到“大模型解析”的数据流转闭环。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal" style="background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;">
+        <div class="content-block reverse">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">3. 低保真原型与体验设计</div>
+                    <h2>认知负荷最低化的输入流线设计</h2>
+                </div>
+                <p>在体验设计阶段，我的目标是让用户的输入口做得<strong>尽可能轻量、无感</strong>。所有的复杂推理都在云端静默完成，前端只提供最直接的情绪价值。</p>
+
+                <div class="pm-card">
+                    <h4>Figma 原型决策点拆解：</h4>
+                    <ul>
+                        <li>首页顶部强目标的<strong>今日热量余额与运动抵扣三环</strong>，提供清晰的正反馈。</li>
+                        <li>首页中部放一个<strong>极具视觉重心的“巨型拍照按钮”</strong>，让核心流线最短化。</li>
+                        <li>底部是拟物化水滴打卡与咖啡、水煮蛋一键快捷直录，走本地纯代码逻辑，<strong>既降低 Token 成本，又平衡了低认知操作体验</strong>。</li>
+                    </ul>
+                </div>
+
+                <div class="pm-actions" style="background: #ffffff; border: 1px solid var(--border-soft);">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>使用 Figma 绘制全套线框图，精简无关表单。</li>
+                        <li>设计人在回路 (Human-in-the-loop)：允许用户对 AI 的错误进行文字纠错，形成数据优化的正向飞轮。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder" style="background: #ffffff;">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [原型标注图]</strong>
+                        放入线框图，用蓝色的指示线引出“巨型按钮”、“热量三环”、“快捷直录”这三个核心决策点。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>诚挚寻找 AI 产品实习机会，随时准备迎接新的挑战。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

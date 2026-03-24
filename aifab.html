@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI+半导体厂房设计 - B端算法产品 | 张驰</title>
+    <style>
+        /* Apple-inspired Soft & Clean Design System */
+        :root {
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --bg-white: #ffffff;
+            --bg-gray: #f5f5f7;
+            --link-blue: #0066cc;
+            --border-soft: rgba(0,0,0,0.06);
+            --accent-soft: #f5f5f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            letter-spacing: -0.015em;
+            overflow-x: hidden;
+        }
+
+        /* 滚动渐显动效 */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 顶部导航 */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 54px;
+            background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; box-shadow: 0 1px 0 var(--border-soft);
+        }
+        .nav-content { width: 100%; max-width: 980px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .nav-brand { font-size: 14px; font-weight: 500; color: var(--text-dark); text-decoration: none; display: flex; align-items: center;}
+        .nav-brand::before { content: "‹"; font-size: 20px; color: var(--text-gray); margin-right: 8px; margin-bottom: 2px;}
+
+        /* Hero 标题区 */
+        .hero { padding: 140px 20px 80px; text-align: center; max-width: 860px; margin: 0 auto; }
+        .hero h1 { font-size: 46px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
+        .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 720px; margin: 0 auto;}
+
+        /* 项目概览 Meta */
+        .meta-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; 
+            max-width: 980px; margin: 0 auto 60px; padding: 32px 40px; 
+            background: #ffffff; border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid var(--border-soft);
+            text-align: left;
+        }
+        .meta-item .label { font-size: 13px; color: var(--text-gray); margin-bottom: 6px; font-weight: 500;}
+        .meta-item .value { font-size: 15px; font-weight: 600; color: var(--text-dark);}
+
+        /* 内容区块与图文左右穿插排版 */
+        .article-section { max-width: 1080px; margin: 0 auto; padding: 60px 24px; }
+        .content-block { display: flex; gap: 60px; align-items: center; }
+        .content-block.reverse { flex-direction: row-reverse; }
+        .text-side { flex: 1.1; }
+        .image-side { flex: 0.9; display: flex; justify-content: center; }
+
+        /* 标题与文字样式 */
+        .section-header { text-align: left; margin-bottom: 20px; }
+        .section-header .tag { font-size: 13px; font-weight: 600; color: var(--link-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; }
+        .section-header h2 { font-size: 30px; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.01em; color: #111;}
+        
+        .text-side p { font-size: 16px; color: var(--text-dark); line-height: 1.7; margin-bottom: 16px; }
+        .text-side p strong { color: #111; font-weight: 600; }
+
+        /* 公式高亮 */
+        .math-formula { display: inline-block; background: var(--accent-soft); padding: 6px 12px; border-radius: 8px; font-family: monospace; font-size: 15px; margin: 4px 0; color: #111; border: 1px solid var(--border-soft);}
+
+        /* PM 思考卡片 */
+        .pm-card { 
+            background: #ffffff; padding: 20px 24px; border-radius: 16px; margin: 20px 0; 
+            border: 1px solid var(--border-soft); box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+        .pm-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--link-blue); }
+        .pm-card p { font-size: 14px; color: #444; margin-bottom: 8px; line-height: 1.6; }
+
+        /* 具体工作细节 (灰底模块) */
+        .pm-actions {
+            background: var(--accent-soft);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+        }
+        .pm-actions h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #111; display: flex; align-items: center;}
+        .pm-actions h4::before { content: ""; display: inline-block; width: 4px; height: 14px; background: var(--link-blue); border-radius: 2px; margin-right: 8px; }
+        .pm-actions ul { list-style: none; margin-left: 0; }
+        .pm-actions li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; line-height: 1.6; }
+        .pm-actions li::before { content: "-"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
+
+        /* 极致柔和的图片占位符 */
+        .diagram-placeholder {
+            width: 100%; border-radius: 24px; padding: 24px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: var(--bg-gray); 
+            border: 1px solid rgba(0,0,0,0.03); 
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.02);
+            text-align: center;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+        .diagram-guide { font-size: 13px; color: var(--text-gray); width: 100%; }
+        .diagram-guide strong { display: block; margin-bottom: 8px; color: #333; }
+
+        footer { padding: 60px 20px; text-align: center; font-size: 13px; color: var(--text-gray); margin-top: 40px;}
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 17px; }
+            .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; border-radius: 16px;}
+            .content-block { flex-direction: column; gap: 32px; }
+            .content-block.reverse { flex-direction: column; }
+            .diagram-placeholder { aspect-ratio: auto; min-height: 240px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">返回</a>
+        </div>
+    </nav>
+
+    <header class="hero reveal">
+        <h1>AI+半导体厂房生成式设计</h1>
+        <p>一款基于运筹优化算法的 B端 SaaS 工具。将建筑设计转化为“多目标优化问题”，把厂房布局产出周期从 3 天压缩至 3 小时。</p>
+    </header>
+
+    <div class="meta-grid reveal">
+        <div class="meta-item">
+            <div class="label">项目职责</div>
+            <div class="value">产品主要负责人 / 算法逻辑搭建</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">核心技术选型</div>
+            <div class="value">Python / 遗传算法 / 参数化设计 (GH)</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">业务价值指标</div>
+            <div class="value">设计效率提升 90% / 运营流线成本最小化</div>
+        </div>
+    </div>
+
+    <section class="article-section reveal">
+        <div class="content-block">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">0. 痛点挖掘与业务抽象</div>
+                    <h2>寻找设计的“北极星指标”</h2>
+                </div>
+                <p>在深度调研一线厂房设计师的工作流后，我发现传统的半导体厂房（涵盖冲压、研磨、清洗、包装等车间）规划极度依赖人工经验。不仅周期冗长，且难以在图纸阶段精确量化投产后的物流运输成本。</p>
+                <p>作为产品负责人，我将这个感性的工程问题抽象为了理性的数学问题。明确了工具优化的<strong>北极星指标：全生命周期运营效率最高，即“最低流线成本”。</strong></p>
+                
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>深度调研业务痛点，提炼出“设计效率”与“建厂后物流成本”两大核心矛盾。</li>
+                        <li>将模糊的建筑需求拆解为可供算法计算的结构化输入参数：物理边界（用地红线、安全间距）与逻辑数据（车间关联列表、物流权重）。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [业务抽象图]</strong>
+                        左侧画一个复杂的厂房手稿（代表传统业务）。<br>
+                        中间一个转化箭头。<br>
+                        右侧写出清晰的数学目标：Min Z = SUM(Flow * Dist)。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal" style="background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;">
+        <div class="content-block reverse">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">1. 核心评估机制设计</div>
+                    <h2>为什么放弃欧几里得距离？</h2>
+                </div>
+                <p>在构建适应度评估函数（Fitness）时，团队最初考虑使用两点间的直线距离。但我很快否决了这个方案。因为在真实的半导体厂房中，车间之间通常是正交的走廊，并且存在<strong>跨楼层货梯的高昂运输时间与动能消耗</strong>。</p>
+                
+                <div class="pm-card">
+                    <h4>产品决策：引入曼哈顿距离与垂直惩罚系数</h4>
+                    <p>我主导将距离度量模型更改为曼哈顿距离，并在 Z 轴（楼层高度）上强制增加了一个“垂直惩罚系数 (k)”：</p>
+                    <div class="math-formula">D = |x1-x2| + |y1-y2| + k * |z1-z2|</div>
+                </div>
+
+                <div class="pm-actions" style="background: #ffffff; border: 1px solid var(--border-soft);">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>结合真实的业务物理阻力，否决了脱离实际的纯数学直线测算。</li>
+                        <li>通过定义“垂直惩罚系数”，让算法在跨楼层分配车间时变得极其谨慎，生成的布局方案完美贴合了工业物流的真实成本结构。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder" style="background: #ffffff;">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [曼哈顿距离 3D 逻辑]</strong>
+                        画一个简易的 3D 楼层剖面图。<br>
+                        对比“虚线的直线距离”与“顺着楼梯攀爬的正交红线（高亮惩罚系数）”。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal">
+        <div class="content-block">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">2. 统一空间生成架构</div>
+                    <h2>克服算法的“局部最优陷阱”</h2>
+                </div>
+                <p>我将核心引擎定义为 <code>约束输入 -> 空间离散化 (Voxel) -> 评估循环 -> 布局生成</code> 的标准流线。为了防止遗传算法在几十代之后卡在“还不错但非最佳”的方案里，我在产品逻辑中加入了强制性的干预机制。</p>
+
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li><strong>防局部最优设计：</strong> 在遗传算法（选择与交叉）中，强制高频引入“变异 (Mutation)”和“随机种子 (Seeds)”，迫使引擎跳出舒适区寻找全局最优解。</li>
+                        <li><strong>产品化封装：</strong> 基于 Python 与参数化工具 (Grasshopper) 完成了底层算法的产品化封装，精简了复杂的输入参数，极大降低了普通设计师的理解门槛。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [统一算法架构图]</strong>
+                        提炼《算法设计.pdf》第一页：<br>
+                        展示从“输入环境参数”到“体素化离散”，再到“遗传算法循环评估”的完整工作流。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal" style="background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;">
+        <div class="content-block reverse">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">3. 商业价值落地</div>
+                    <h2>AIGC 补齐汇报交付的“最后一公里”</h2>
+                </div>
+                <p>运筹算法跑出的结果（纯色块图）对底层数据极其精准，但在面向甲方客户汇报时，却往往缺乏视觉冲击力和说服力。为了让产品具备真正的 B 端商业闭环能力，我引入了生成式 AI 工作流。</p>
+
+                <div class="pm-card">
+                    <h4>产品决策：集成 Stable Diffusion 渲染链路</h4>
+                    <p>提取算法底层生成的粗糙结构线稿，将其作为 <strong>ControlNet Line-art 预处理器</strong>的控制源。配合深度定制的 Prompt 模型，一键完成渲染。</p>
+                </div>
+
+                <div class="pm-actions" style="background: #ffffff; border: 1px solid var(--border-soft);">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>打通从“抽象算法数据”到“高保真视觉表现”的工作链路。</li>
+                        <li>实现了一键输出包含现代混凝土、玻璃幕墙等材质的建筑效果图，大幅提升了方案在商业竞标阶段的直观说服力与转化率。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <div class="diagram-placeholder" style="background: #ffffff;">
+                    <div class="diagram-guide">
+                        <strong>🖼️ 制图指引 [AIGC 渲染对比]</strong>
+                        左侧放一张简陋的算法色块线稿。<br>
+                        中间加一个 ControlNet 图标箭头。<br>
+                        右侧放一张极具高级感的建筑效果图。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>诚挚寻找 AI 产品实习机会，随时准备迎接新的挑战。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

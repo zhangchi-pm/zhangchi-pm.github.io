@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张驰 | AI 产品经理实习求职</title>
+    <style>
+        /* Apple-inspired Soft & Clean Design System */
+        :root {
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --bg-white: #ffffff;
+            --bg-gray: #f5f5f7;
+            --link-blue: #0066cc;
+            --border-soft: rgba(0,0,0,0.06);
+            --accent-soft: #f5f5f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            letter-spacing: -0.015em;
+            overflow-x: hidden;
+        }
+
+        /* --- 核心动效：滚动渐显 --- */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 顶部导航 */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 54px;
+            background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; box-shadow: 0 1px 0 var(--border-soft);
+        }
+        .nav-content { width: 100%; max-width: 1080px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .nav-brand { font-size: 14px; font-weight: 600; color: var(--text-dark); text-decoration: none; }
+        
+        .nav-indexes { display: flex; gap: 16px; align-items: center; }
+        .nav-indexes a { font-size: 13px; color: var(--text-dark); text-decoration: none; padding: 6px 12px; border-radius: 14px; transition: all 0.2s ease; font-weight: 500;}
+        .nav-indexes a:hover { background: var(--bg-gray); }
+
+        /* 首屏 Hero */
+        .hero { padding: 160px 24px 100px; text-align: center; max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+        .hero-tag { font-size: 13px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .hero h1 { font-size: 52px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
+        
+        /* 🔥 修改重点：将间距从 72px 提升至 120px，创造极致呼吸感 */
+        .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 680px; margin: 0 auto 120px;}
+        
+        /* 按钮系统 */
+        .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px;}
+        .btn-primary { background: #111; color: #fff; padding: 14px 28px; border-radius: 98px; text-decoration: none; font-size: 15px; font-weight: 500; transition: transform 0.2s, opacity 0.2s; }
+        .btn-primary:hover { opacity: 0.85; transform: scale(0.98); }
+        .btn-secondary { background: var(--bg-gray); color: #111; padding: 14px 28px; border-radius: 98px; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+        .btn-secondary:hover { background: #e5e5ea; }
+
+        .contact-info { display: flex; gap: 24px; font-size: 14px; color: var(--text-gray); }
+        .contact-info span { position: relative; }
+        .contact-info span:not(:last-child)::after { content: "|"; position: absolute; right: -14px; color: var(--border-soft); }
+
+        /* --- 全宽通栏背景设置 --- */
+        .section-full-gray { background-color: var(--bg-gray); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 100px 0; }
+        .section-full-white { background-color: var(--bg-white); padding: 100px 0; }
+
+        /* 主页项目介绍：内容居中限制宽度 */
+        .project-content { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+        
+        .project-header { text-align: left; margin-bottom: 40px; max-width: 800px; }
+        
+        .project-role { font-size: 13px; font-weight: 600; color: var(--link-blue); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em;}
+        
+        .project-title { font-size: 36px; font-weight: 600; margin-bottom: 32px; color: #111; letter-spacing: -0.01em;}
+        
+        .project-desc { font-size: 18px; color: var(--text-dark); margin-bottom: 32px; line-height: 1.6;}
+        
+        .learn-more { font-size: 16px; color: var(--link-blue); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; transition: opacity 0.2s; }
+        .learn-more:hover { opacity: 0.8; text-decoration: underline; }
+        .learn-more::after { content: "›"; font-size: 20px; margin-left: 4px; line-height: 1; margin-bottom: 2px;}
+
+        /* 超宽图片占位 */
+        .mockup-img { 
+            width: 100%; border-radius: 24px; padding: 24px;
+            display: flex; justify-content: center; align-items: center;
+            aspect-ratio: 21 / 9;
+            text-align: center; color: var(--text-gray); font-size: 13px;
+            margin-bottom: 40px; overflow: hidden;
+        }
+        
+        .section-full-gray .mockup-img { background: #ffffff; border: 1px solid var(--border-soft); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .section-full-white .mockup-img { background: var(--bg-gray); box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); border: none; }
+
+        /* 底部三列网格 */
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; width: 100%; text-align: left; }
+        .grid-item h4 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: #111;}
+        .grid-item p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 0; }
+
+        /* --- 简历排版区 --- */
+        .resume-section { max-width: 860px; width: 100%; margin: 40px auto 80px; text-align: left; padding: 0 24px;}
+        
+        .resume-card {
+            background: #ffffff; border: 1px solid var(--border-soft); border-radius: 24px;
+            padding: 40px 48px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.03); margin-bottom: 60px;
+            gap: 32px;
+        }
+        .resume-card-info h3 { font-size: 22px; font-weight: 600; color: #111; margin-bottom: 8px;}
+        .resume-card-info p { font-size: 15px; color: var(--text-gray); margin: 0;}
+
+        .resume-block { margin-bottom: 56px; }
+        .resume-block h3 { font-size: 24px; font-weight: 600; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-soft); color: #111;}
+        
+        .resume-item { margin-bottom: 32px; }
+        .resume-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .resume-item-title { font-size: 17px; font-weight: 600; color: #111;}
+        .resume-item-date { font-size: 14px; color: var(--text-gray); font-weight: 500;}
+        .resume-item p { font-size: 15px; margin-bottom: 6px; color: #444; line-height: 1.6;}
+        .resume-item p strong { color: #111; font-weight: 600;}
+
+        .awards-container { margin-top: 24px; }
+        .awards-title { font-size: 15px; font-weight: 600; color: #111; margin-bottom: 12px;}
+        .awards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 16px; }
+        .award-item { font-size: 14px; color: #444; display: flex; align-items: flex-start; }
+        .award-item::before { content: "·"; font-weight: bold; color: var(--text-gray); margin-right: 8px; font-size: 16px;}
+
+        footer { background: var(--bg-gray); border-top: 1px solid var(--border-soft); padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 38px; }
+            .hero p { font-size: 17px; margin-bottom: 60px; }
+            .section-full-gray, .section-full-white { padding: 60px 0; }
+            .project-title { font-size: 32px; }
+            .grid-3 { grid-template-columns: 1fr; gap: 24px; }
+            .mockup-img { aspect-ratio: auto; min-height: 200px; }
+            .resume-card { flex-direction: column; text-align: center; gap: 24px; padding: 40px 24px;}
+            .btn-group { flex-direction: column; width: 100%; max-width: 300px;}
+            .btn-primary, .btn-secondary { width: 100%; text-align: center;}
+            .resume-item-header { flex-direction: column; gap: 4px; }
+            .awards-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-brand">张驰的实习申请</a>
+            <div class="nav-indexes">
+                <a href="#projects">项目案例</a>
+                <a href="#resume">在线简历</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-tag">AI Product Manager Intern</div>
+        <h1>设计出身，算法加持。</h1>
+        <h2>我是张驰，天津大学建筑学院数字化所本硕<br>兼具工程思维与产品直觉，期待能为团队带来扎实的执行力与业务价值</h2>
+        <h2><br></h2>
+        <div class="btn-group">
+            <a href="#projects" class="btn-primary">浏览项目经历</a>
+            <a href="#resume" class="btn-secondary">查看在线简历</a>
+        </div>
+
+        <div class="contact-info">
+            <span>TEL:15843722198</span>
+            <span>Email:15843722198@163.com</span>
+            <span>WeChat: Jang_Chr</span>
+        </div>
+    </section>
+
+    <section id="projects" class="section-full-gray">
+        <div class="project-content">
+            <div class="project-header reveal">
+                <div class="project-role">独立开发与产品策划 / 2026.03</div>
+                <h2 class="project-title">SnapCal (知食分子)</h2>
+                <p class="project-desc">一款基于视觉大模型的智能饮食管家。探索将繁琐的传统饮食记录缩短至一键拍照，致力于大幅降低用户的记账门槛。</p>
+                <a href="snapcal.html" class="learn-more">阅读完整复盘与架构逻辑</a>
+            </div>
+
+            <div class="mockup-img reveal" style="transition-delay: 0.1s;">
+                [ 建议：放入包含手机界面的超宽画幅排版图 ]
+            </div>
+
+            <div class="grid-3 reveal" style="transition-delay: 0.2s;">
+                <div class="grid-item">
+                    <h4>0-1 产品落地与异常兜底</h4>
+                    <p>独立完成产品需求抽象与前后端全栈开发。针对图像识别可能失败的极端场景，设计了严密的降级录入方案，确保核心业务流在异常情况下依然畅通。</p>
+                </div>
+                <div class="grid-item">
+                    <h4>精细化策略干预</h4>
+                    <p>构建基于用户 TDEE 的动态结算模型。设计 4 个容错阶梯，根据额度下发“居家自炊”与“外卖精选”策略，尝试打通从记录到指导的业务闭环。</p>
+                </div>
+                <div class="grid-item">
+                    <h4>体验最低门槛化</h4>
+                    <p>巨型拍照按钮主导核心流线，结合本地直录功能（如喝水打卡），既提供了即时的正反馈动效，又大幅节省了云端 Token 成本。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-full-white">
+        <div class="project-content">
+            <div class="project-header reveal">
+                <div class="project-role">产品核心执行 / 2025.09 - 2026.01</div>
+                <h2 class="project-title">AI+半导体厂房设计</h2>
+                <p class="project-desc">一款尝试提升传统厂房布局效率的辅助决策工具。通过引入运筹优化算法，将方案产出周期从数天优化至数小时。</p>
+                <a href="aifab.html" class="learn-more">探索背后的运筹推演</a>
+            </div>
+
+            <div class="mockup-img reveal" style="transition-delay: 0.1s;">
+                [ 建议：放入算法逻辑或渲染效果图拼接 ]
+            </div>
+
+            <div class="grid-3 reveal" style="transition-delay: 0.2s;">
+                <div class="grid-item">
+                    <h4>痛点挖掘与目标拆解</h4>
+                    <p>调研一线设计师的工作痛点，提炼出“成本”与“效率”的核心平衡点，明确了降低全生命周期流线总成本的优化北极星指标。</p>
+                </div>
+                <div class="grid-item">
+                    <h4>注重技术可行性</h4>
+                    <p>结合真实的业务诉求，协助团队引入曼哈顿距离与垂直惩罚系数，确保底层算法选型能真实解决跨楼层物流成本的痛点。</p>
+                </div>
+                <div class="grid-item">
+                    <h4>AIGC 商业闭环</h4>
+                    <p>打通从抽象算法数据到 Stable Diffusion 高保真视觉表现的工作链路。一键渲染建筑效果图，提升前端竞标时的直观说服力。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume" class="resume-section">
+        
+        <div class="resume-card reveal">
+            <div class="resume-card-info">
+                <h3>获取完整版图文简历</h3>
+                <p>内含排版精美的个人介绍与更多细节</p>
+            </div>
+            <a href="简历cak.jpg" target="_blank" class="btn-primary">查看图片简历</a>
+        </div>
+
+        <div class="resume-block reveal">
+            <h3>教育背景</h3>
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <div class="resume-item-title">天津大学 (985) · 建筑 (专硕/推免)</div>
+                    <div class="resume-item-date">2025.09 - 至今</div>
+                </div>
+                <p><strong>研究方向：</strong>数字化设计（生成式设计、交互设计、智能建造）</p>
+                <p><strong>主修课程：</strong>Python 编程基础、数据分析与挖掘、算法与应用</p>
+            </div>
+            
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <div class="resume-item-title">天津大学 (985) · 建筑学 (本科)</div>
+                    <div class="resume-item-date">2020.09 - 2025.06</div>
+                </div>
+                <p><strong>成绩情况：</strong>GPA 3.86/4.00 (加权 90.52/100)</p>
+                
+                <div class="awards-container">
+                    <div class="awards-title">获得荣誉与奖励</div>
+                    <div class="awards-grid">
+                        <span class="award-item">本科生国家奖学金</span>
+                        <span class="award-item">本科生国家励志奖学金</span>
+                        <span class="award-item">天津大学三好学生</span>
+                        <span class="award-item">天津大学优秀共青团干部</span>
+                        <span class="award-item">天津大学优秀共青团员</span>
+                        <span class="award-item">天津大学学习优异先进个人</span>
+                        <span class="award-item">天津大学优秀学生代表先进个人</span>
+                        <span class="award-item">建筑学院优异生</span>
+                        <span class="award-item">建筑学院优秀毕业生</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resume-block reveal">
+            <h3>技能与工具栈</h3>
+            <div class="resume-item" style="line-height: 2;">
+                <p><strong>产品与设计：</strong> Axure, Figma, Xmind, Photoshop</p>
+                <p><strong>数据与开发：</strong> Python, SQL, 小程序全栈开发, Excel</p>
+                <p><strong>AI 效率工具：</strong> Stable Diffusion, Midjourney, Prompt Engineering</p>
+            </div>
+        </div>
+
+        <div class="resume-block reveal">
+            <h3>个人优势</h3>
+            <div class="resume-item">
+                <div class="resume-item-title">技术视角的跨界学习者</div>
+                <p style="margin-top: 4px;">拥有参数化设计背景与全栈开发实践，具备良好的工程思维。能够顺畅地与研发团队对接，协助评估技术可行性，避免脱离实际的过度设计。</p>
+            </div>
+            <div class="resume-item">
+                <div class="resume-item-title">AIGC 的深度实践者</div>
+                <p style="margin-top: 4px;">习惯用技术手段优化工作流，熟练运用各类 AI 工具解决实际问题，并在过往项目中成功将大模型引入产品闭环。</p>
+            </div>
+            <div class="resume-item">
+                <div class="resume-item-title">扎实的结果导向执行者</div>
+                <p style="margin-top: 4px;">执行力强，具备跨职能沟通意识。能够将业务需求转化为清晰的技术语言，习惯用数据驱动决策，踏实推进复杂需求的落地。</p>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>Copyright © 2024 张驰. 保留所有权利。</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
