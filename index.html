@@ -139,8 +139,13 @@
 
         footer { background: var(--bg-gray); border-top: 1px solid var(--border-soft); padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray); }
 
+        /* 🔥 移动端专属适配 🔥 */
         @media (max-width: 768px) {
             .hero h1 { font-size: 38px; }
+            
+            /* 新增：专门针对手机端的 h2 缩小字号和行高，取消过粗的黑体 */
+            .hero h2 { font-size: 15px; line-height: 1.5; font-weight: 500; margin-bottom: 8px; }
+            
             .hero p { font-size: 17px; margin-bottom: 60px; }
             .section-full-gray, .section-full-white { padding: 60px 0; }
             .project-title { font-size: 32px; }
@@ -316,7 +321,7 @@
     </section>
 
     <footer>
-        <p>Copyright © 2024 张驰. 保留所有权利。</p>
+        <p>Copyright © 2026 张驰. 保留所有权利。</p>
     </footer>
 
     <script>
