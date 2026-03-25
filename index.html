@@ -141,7 +141,6 @@
 
         /* 🔥 移动端专属适配 🔥 */
         @media (max-width: 768px) {
-            /* 1. 强制八个字在一行，并使用 clamp 动态自适应屏幕大小 */
             .hero h1 { 
                 font-size: clamp(24px, 8.5vw, 38px); 
                 white-space: nowrap; 
@@ -153,7 +152,7 @@
             .project-title { font-size: 32px; }
             .grid-3 { grid-template-columns: 1fr; gap: 24px; }
             
-            /* 2. 移除固定 min-height 和多余背景边框，让图片高度自然贴合 */
+            /* 通用图片容器去边框 */
             .mockup-img { 
                 aspect-ratio: auto; 
                 min-height: auto; 
@@ -165,13 +164,22 @@
                 height: auto !important;
             }
 
+            /* 🌟 单独针对 aifab 动图裁掉原生黑边 🌟 */
+            #aifab-mockup {
+                aspect-ratio: 21 / 9; /* 强制在手机端也保持宽屏裁剪 */
+                overflow: hidden;
+            }
+            #aifab-mockup img {
+                height: 100% !important; /* 填满裁剪框 */
+                object-fit: cover !important;
+            }
+
             .resume-card { flex-direction: column; text-align: center; gap: 24px; padding: 40px 24px;}
             .btn-group { flex-direction: column; width: 100%; max-width: 300px;}
             .btn-primary, .btn-secondary { width: 100%; text-align: center;}
             .resume-item-header { flex-direction: column; gap: 4px; }
             .awards-grid { grid-template-columns: 1fr; }
 
-            /* 3. 手机端底部联系方式改为垂直排列，并去除竖线 */
             .contact-info { 
                 flex-direction: column; 
                 gap: 12px; 
@@ -250,7 +258,7 @@
                 <a href="aifab.html" class="learn-more">探索背后的运筹推演</a>
             </div>
 
-            <div class="mockup-img reveal" style="transition-delay: 0.1s; padding: 0; border: none;">
+            <div id="aifab-mockup" class="mockup-img reveal" style="transition-delay: 0.1s; padding: 0; border: none;">
                 <img src="aifab.gif" alt="AI半导体生成演示" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; transform: scale(1.03);">
             </div>
 
@@ -348,7 +356,6 @@
     </footer>
 
     <script>
-        // 强制每次刷新都回到顶部
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
         }
