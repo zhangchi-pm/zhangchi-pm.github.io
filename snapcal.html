@@ -44,7 +44,6 @@
             z-index: 1000; box-shadow: 0 1px 0 var(--border-soft);
         }
         
-        /* 强制全局 960px 网格线 */
         .nav-content { width: 100%; max-width: 960px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
         .nav-brand { font-size: 14px; font-weight: 500; color: var(--text-dark); text-decoration: none; display: flex; align-items: center;}
         .nav-brand::before { content: "‹"; font-size: 20px; color: var(--text-gray); margin-right: 8px; margin-bottom: 2px;}
@@ -63,20 +62,15 @@
         .meta-item .label { font-size: 13px; color: var(--text-gray); margin-bottom: 6px; font-weight: 500;}
         .meta-item .value { font-size: 15px; font-weight: 600; color: var(--text-dark);}
 
-        /* ==========================================
-           关键修改：彻底干掉胶囊灰框，改为全屏通栏背景
-           保证内部所有的 960px 内容完美对齐
-           ========================================== */
         .article-section { 
             width: 100%; 
-            padding: 100px 24px; /* 增加上下留白，让大图更有呼吸感 */
+            padding: 100px 24px; 
         }
         
         .bg-gray-section {
             background-color: var(--bg-gray);
         }
 
-        /* 强制统一内容宽度并水平居中 */
         .content-block { 
             display: flex; 
             gap: 40px; 
@@ -93,7 +87,6 @@
             gap: 40px;
         }
         
-        /* 强行绑定文本和图片的最大宽度，让左右边缘100%对齐 */
         .content-block.vertical .text-side,
         .content-block.vertical .image-side {
             flex: none;
@@ -129,7 +122,6 @@
         .pm-actions li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; line-height: 1.6; }
         .pm-actions li::before { content: "-"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
 
-        /* 专门为大图定制的高清展示类 */
         .content-image {
             width: 100%;
             height: auto;
@@ -139,7 +131,51 @@
             display: block;
         }
 
-        footer { padding: 60px 20px; text-align: center; font-size: 13px; color: var(--text-gray); margin-top: 40px;}
+        /* 新增：底部项目导航样式 */
+        .project-nav {
+            max-width: 960px;
+            margin: 80px auto 40px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .project-nav a {
+            flex: 1;
+            padding: 32px;
+            background: var(--bg-gray);
+            border-radius: 24px;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid transparent;
+        }
+        .project-nav a:hover {
+            background: #ffffff;
+            border-color: var(--border-soft);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        .project-nav .nav-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .project-nav .nav-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--link-blue);
+        }
+        .project-nav .next-project {
+            text-align: right;
+        }
+
+        footer { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray);}
 
         /* 🔥 移动端专属适配 🔥 */
         @media (max-width: 768px) {
@@ -149,7 +185,6 @@
             
             .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; margin-bottom: 40px; border-radius: 16px;}
             
-            /* 手机端统一为上下结构，并缩小间距 */
             .content-block, .content-block.reverse, .content-block.vertical { flex-direction: column; gap: 32px; }
             
             .article-section { padding: 60px 20px; }
@@ -158,6 +193,11 @@
             .pm-card, .pm-actions { padding: 20px; }
             
             .content-image { border-radius: 16px; }
+
+            /* 移动端导航改为上下排列 */
+            .project-nav { flex-direction: column; margin-top: 40px; padding: 0 20px; gap: 16px;}
+            .project-nav a { padding: 24px; border-radius: 16px; }
+            .project-nav .next-project { text-align: left; }
         }
     </style>
 </head>
@@ -296,6 +336,17 @@
             </div>
         </div>
     </section>
+
+    <div class="project-nav reveal">
+        <a href="index.html" class="prev-project">
+            <span class="nav-label">返回</span>
+            <span class="nav-title">主页 / 作品集</span>
+        </a>
+        <a href="aifab.html" class="next-project">
+            <span class="nav-label">查看另一个项目</span>
+            <span class="nav-title">AI+半导体厂房设计</span>
+        </a>
+    </div>
 
     <footer>
         <p>诚挚寻找 AI 产品实习机会，随时准备迎接新的挑战。</p>
