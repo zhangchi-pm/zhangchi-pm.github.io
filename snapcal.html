@@ -63,15 +63,32 @@
 
         .article-section { max-width: 1080px; margin: 0 auto; padding: 60px 24px; }
         
-        /* 提取出胶囊背景的 CSS 类，以便适配手机 */
         .bg-capsule {
             background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;
         }
 
+        /* 保留基础排版类，以备不时之需 */
         .content-block { display: flex; gap: 60px; align-items: center; }
         .content-block.reverse { flex-direction: row-reverse; }
         .text-side { flex: 1.1; }
         .image-side { flex: 0.9; display: flex; justify-content: center; }
+
+        /* 新增：上下排布结构 (用于展现超大图) */
+        .content-block.vertical {
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
+        .content-block.vertical .text-side {
+            flex: none;
+            width: 100%;
+            max-width: 900px; /* 限制文本最大宽度，保证阅读舒适性 */
+            margin: 0 auto;
+        }
+        .content-block.vertical .image-side {
+            flex: none;
+            width: 100%;
+        }
 
         .section-header { text-align: left; margin-bottom: 20px; }
         .section-header .tag { font-size: 13px; font-weight: 600; color: var(--link-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; }
@@ -102,6 +119,16 @@
         .pm-actions li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; line-height: 1.6; }
         .pm-actions li::before { content: "-"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
 
+        /* 专门为大图定制的高清展示类 */
+        .content-image {
+            width: 100%;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-soft);
+            display: block;
+        }
+
         footer { padding: 60px 20px; text-align: center; font-size: 13px; color: var(--text-gray); margin-top: 40px;}
 
         /* 🔥 移动端专属适配 🔥 */
@@ -110,19 +137,18 @@
             .hero h1 { font-size: 32px; margin-bottom: 16px;}
             .hero p { font-size: 16px; }
             
-            /* 属性网格变单列 */
             .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; margin-bottom: 40px; border-radius: 16px;}
             
-            /* 左右结构变成上下结构 */
-            .content-block { flex-direction: column; gap: 32px; }
-            .content-block.reverse { flex-direction: column; }
+            /* 手机端统一为上下结构，并缩小间距 */
+            .content-block, .content-block.reverse, .content-block.vertical { flex-direction: column; gap: 32px; }
             
-            /* 手机端适当缩小胶囊的边距和圆角 */
             .bg-capsule { border-radius: 24px; margin: 20px auto; padding: 40px 20px; }
             .article-section { padding: 40px 20px; }
             
             .section-header h2 { font-size: 26px; }
             .pm-card, .pm-actions { padding: 20px; }
+            
+            .content-image { border-radius: 16px; }
         }
     </style>
 </head>
@@ -155,7 +181,7 @@
     </div>
 
     <section class="article-section reveal">
-        <div class="content-block">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">0. 商业探索与需求验证</div>
@@ -173,13 +199,13 @@
                 </div>
             </div>
             <div class="image-side">
-                <img src="food1.jpg" alt="对比图" style="width: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <img src="food1.jpg" alt="对比图" class="content-image">
             </div>
         </div>
     </section>
 
     <section class="article-section bg-capsule reveal">
-        <div class="content-block reverse">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">1. 撰写 AI-PRD 与边界定义</div>
@@ -201,13 +227,13 @@
                 </div>
             </div>
             <div class="image-side">
-                <img src="food2.jpg" alt="逻辑图" style="width: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <img src="food2.jpg" alt="逻辑图" class="content-image">
             </div>
         </div>
     </section>
 
     <section class="article-section reveal">
-        <div class="content-block">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">2. 业务流程与全栈架构设计</div>
@@ -225,13 +251,13 @@
                 </div>
             </div>
             <div class="image-side">
-                <img src="food3.jpg" alt="架构时序图" style="width: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <img src="food3.jpg" alt="架构时序图" class="content-image">
             </div>
         </div>
     </section>
 
     <section class="article-section bg-capsule reveal">
-        <div class="content-block reverse">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">3. 低保真原型与体验设计</div>
@@ -257,7 +283,7 @@
                 </div>
             </div>
             <div class="image-side">
-                <img src="food4.jpg" alt="原型标注图" style="width: 100%; border-radius: 24px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <img src="food4.jpg" alt="原型标注图" class="content-image">
             </div>
         </div>
     </section>
