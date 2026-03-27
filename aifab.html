@@ -43,7 +43,8 @@
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; box-shadow: 0 1px 0 var(--border-soft);
         }
-        /* 将导航栏宽度统一为 960px，保持全局对齐 */
+        
+        /* 强制全局 960px 网格线 */
         .nav-content { width: 100%; max-width: 960px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
         .nav-brand { font-size: 14px; font-weight: 500; color: var(--text-dark); text-decoration: none; display: flex; align-items: center;}
         .nav-brand::before { content: "‹"; font-size: 20px; color: var(--text-gray); margin-right: 8px; margin-bottom: 2px;}
@@ -52,7 +53,6 @@
         .hero h1 { font-size: 46px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
         .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 720px; margin: 0 auto;}
 
-        /* 将信息网格宽度统一为 960px，保持全局对齐 */
         .meta-grid { 
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; 
             max-width: 960px; margin: 0 auto 60px; padding: 32px 40px; 
@@ -63,22 +63,25 @@
         .meta-item .label { font-size: 13px; color: var(--text-gray); margin-bottom: 6px; font-weight: 500;}
         .meta-item .value { font-size: 15px; font-weight: 600; color: var(--text-dark);}
 
-        .article-section { width: 100%; margin: 0 auto; padding: 60px 24px; }
+        /* ==========================================
+           关键修改：彻底干掉胶囊灰框，改为全屏通栏背景
+           保证内部所有的 960px 内容完美对齐
+           ========================================== */
+        .article-section { 
+            width: 100%; 
+            padding: 100px 24px; /* 增加上下留白，让呼吸感更强 */
+        }
         
-        .bg-capsule {
-            background: var(--bg-gray); border-radius: 40px; margin: 40px auto; padding: 80px 40px; max-width: 1140px;
+        .bg-gray-section {
+            background-color: var(--bg-gray);
         }
 
-        /* ==========================================
-           关键修改：全局严格对齐逻辑
-           强制所有内容块（左右、右左、上下）外边缘宽度统一为 960px
-           ========================================== */
         .content-block { 
             display: flex; 
             gap: 40px; 
             align-items: center; 
-            max-width: 960px; /* 强制统一宽度 */
-            margin: 0 auto;   /* 强制居中 */
+            max-width: 960px; /* 强制统一内容宽度 */
+            margin: 0 auto;   /* 强制水平居中 */
             width: 100%;
         }
         .content-block.reverse { flex-direction: row-reverse; }
@@ -92,10 +95,9 @@
         .content-block.vertical .image-side {
             flex: none;
             width: 100%;
-            /* 移除自身的 max-width，完全撑满父级的 960px */
         }
 
-        /* 调整桌面端比例，让左右结构时图片显示更大 */
+        /* 调整桌面端比例 */
         .text-side { flex: 1; }
         .image-side { flex: 1.25; display: flex; justify-content: center; align-items: center; }
 
@@ -150,8 +152,7 @@
             /* 手机端统一为上下结构 */
             .content-block, .content-block.reverse, .content-block.vertical { flex-direction: column; gap: 32px; }
             
-            .bg-capsule { border-radius: 24px; margin: 20px auto; padding: 40px 20px; }
-            .article-section { padding: 40px 20px; }
+            .article-section { padding: 60px 20px; }
             
             .section-header h2 { font-size: 26px; }
             .pm-card, .pm-actions { padding: 20px; }
@@ -212,7 +213,7 @@
         </div>
     </section>
 
-    <section class="article-section bg-capsule reveal">
+    <section class="article-section bg-gray-section reveal">
         <div class="content-block reverse">
             <div class="text-side">
                 <div class="section-header">
@@ -264,7 +265,7 @@
         </div>
     </section>
 
-    <section class="article-section bg-capsule reveal">
+    <section class="article-section bg-gray-section reveal">
         <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
