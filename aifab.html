@@ -70,7 +70,24 @@
         .content-block { display: flex; gap: 60px; align-items: center; }
         .content-block.reverse { flex-direction: row-reverse; }
         
-        /* 调整桌面端比例，让图片显示更大 */
+        /* 新增：上下排布结构 (用于展现超大图) */
+        .content-block.vertical {
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+        }
+        .content-block.vertical .text-side {
+            flex: none;
+            width: 100%;
+            max-width: 900px; /* 限制文本最大宽度，保证阅读舒适性 */
+            margin: 0 auto;
+        }
+        .content-block.vertical .image-side {
+            flex: none;
+            width: 100%;
+        }
+
+        /* 调整桌面端比例，让左右结构时图片显示更大 */
         .text-side { flex: 1; }
         .image-side { flex: 1.25; display: flex; justify-content: center; align-items: center; }
 
@@ -122,8 +139,8 @@
             
             .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; margin-bottom: 40px; border-radius: 16px;}
             
-            .content-block { flex-direction: column; gap: 32px; }
-            .content-block.reverse { flex-direction: column; }
+            /* 手机端统一为上下结构 */
+            .content-block, .content-block.reverse, .content-block.vertical { flex-direction: column; gap: 32px; }
             
             .bg-capsule { border-radius: 24px; margin: 20px auto; padding: 40px 20px; }
             .article-section { padding: 40px 20px; }
@@ -218,7 +235,7 @@
     </section>
 
     <section class="article-section reveal">
-        <div class="content-block">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">2. 统一空间生成架构</div>
@@ -241,7 +258,7 @@
     </section>
 
     <section class="article-section bg-capsule reveal">
-        <div class="content-block reverse">
+        <div class="content-block vertical">
             <div class="text-side">
                 <div class="section-header">
                     <div class="tag">3. 商业价值落地</div>
