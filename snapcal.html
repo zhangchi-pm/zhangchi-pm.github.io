@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>知食分子 - 独立全栈产品 | 张驰</title>
     <style>
+        /* Apple-inspired Soft & Clean Design System */
         :root {
             --nav-bg: rgba(255, 255, 255, 0.85);
             --text-dark: #1d1d1f;
@@ -81,16 +82,14 @@
         .project-nav a:hover { background: #ffffff; border-color: var(--border-soft); box-shadow: 0 12px 30px rgba(0,0,0,0.05); transform: translateY(-2px); }
         .project-nav .nav-label { font-size: 13px; color: var(--text-gray); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
         .project-nav .nav-title { font-size: 20px; font-weight: 600; color: var(--link-blue); }
-        .project-nav .next-project { text-align: right; }
-
-        footer { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray);}
-
+        
         /* 🔥 电脑端底部导航专属对齐（左、中、右） 🔥 */
         .project-nav a:nth-child(1) { align-items: flex-start; text-align: left; }
         .project-nav a:nth-child(2) { align-items: center; text-align: center; }
         .project-nav a:nth-child(3) { align-items: flex-end; text-align: right; }
 
-        /* 🔥 移动端专属适配 🔥 */
+        footer { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray);}
+
         @media (max-width: 768px) {
             .hero { padding: 120px 20px 60px; }
             .hero h1 { font-size: 32px; margin-bottom: 16px;}
@@ -102,9 +101,14 @@
             .pm-card, .pm-actions { padding: 20px; }
             .content-image { border-radius: 16px; }
             
-            /* 手机端导航适配：强制文本靠左，覆盖所有行内样式 */
+            /* 🔥 手机端导航适配：强制文本与盒子全部靠左，覆盖所有行内样式 🔥 */
             .project-nav { flex-direction: column; margin-top: 40px; padding: 0 20px; gap: 16px;}
-            .project-nav a { padding: 24px; border-radius: 16px; text-align: left !important; }
+            .project-nav a { 
+                padding: 24px; 
+                border-radius: 16px; 
+                text-align: left !important; 
+                align-items: flex-start !important; 
+            }
         }
     </style>
 </head>
@@ -249,11 +253,11 @@
             <span class="nav-label">返回</span>
             <span class="nav-title">主页 / 作品集</span>
         </a>
-        <a href="aifab.html" style="text-align: center;">
+        <a href="aifab.html">
             <span class="nav-label">项目案例 2</span>
             <span class="nav-title">AI+半导体设计</span>
         </a>
-        <a href="autodca.html" class="next-project">
+        <a href="autodca.html">
             <span class="nav-label">项目案例 3</span>
             <span class="nav-title">AutoDCA定投</span>
         </a>
