@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>张驰 | AI 产品经理实习求职</title>
     <style>
-        /* 原有样式完全保留，未做任何修改 */
+        /* Apple-inspired Soft & Clean Design System */
         :root {
             --nav-bg: rgba(255, 255, 255, 0.85);
             --text-dark: #1d1d1f;
@@ -29,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* --- 核心动效：滚动渐显 --- */
         .reveal {
             opacity: 0; transform: translateY(30px);
             transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
@@ -36,6 +37,7 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* 顶部导航 */
         nav {
             position: fixed; top: 0; width: 100%; height: 54px;
             background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px);
@@ -50,12 +52,15 @@
         .nav-indexes a { font-size: 13px; color: var(--text-dark); text-decoration: none; padding: 6px 12px; border-radius: 14px; transition: all 0.2s ease; font-weight: 500;}
         .nav-indexes a:hover { background: var(--bg-gray); }
 
+        /* 首屏 Hero */
         .hero { padding: 160px 24px 100px; text-align: center; max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
         .hero-tag { font-size: 13px; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
         .hero h1 { font-size: 52px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
         
+        /* 间距控制 */
         .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 680px; margin: 0 auto 120px;}
         
+        /* 按钮系统 */
         .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px;}
         .btn-primary { background: #111; color: #fff; padding: 14px 28px; border-radius: 98px; text-decoration: none; font-size: 15px; font-weight: 500; transition: transform 0.2s, opacity 0.2s; }
         .btn-primary:hover { opacity: 0.85; transform: scale(0.98); }
@@ -66,19 +71,28 @@
         .contact-info span { position: relative; }
         .contact-info span:not(:last-child)::after { content: "|"; position: absolute; right: -14px; color: var(--border-soft); }
 
+        /* --- 全宽通栏背景设置 --- */
         .section-full-gray { background-color: var(--bg-gray); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 100px 0; }
         .section-full-white { background-color: var(--bg-white); padding: 100px 0; }
 
+        /* 主页项目介绍：内容居中限制宽度 */
         .project-content { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-        .project-header { text-align: left; margin-bottom: 40px; max-width: 800px; }
+        
+        /* 🔥 这里去掉了 max-width: 800px，让文字和图片等宽 🔥 */
+        .project-header { text-align: left; margin-bottom: 40px; max-width: 100%; }
+        
         .project-role { font-size: 13px; font-weight: 600; color: var(--link-blue); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.05em;}
+        
+        /* 标题间距控制 */
         .project-title { font-size: 36px; font-weight: 600; margin-bottom: 18px; color: #111; letter-spacing: -0.01em;}
+        
         .project-desc { font-size: 18px; color: var(--text-dark); margin-bottom: 32px; line-height: 1.6;}
         
         .learn-more { font-size: 16px; color: var(--link-blue); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; transition: opacity 0.2s; }
         .learn-more:hover { opacity: 0.8; text-decoration: underline; }
         .learn-more::after { content: "›"; font-size: 20px; margin-left: 4px; line-height: 1; margin-bottom: 2px;}
 
+        /* 超宽图片占位 */
         .mockup-img { 
             width: 100%; border-radius: 24px; padding: 24px;
             display: flex; justify-content: center; align-items: center;
@@ -90,11 +104,14 @@
         .section-full-gray .mockup-img { background: #ffffff; border: 1px solid var(--border-soft); box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
         .section-full-white .mockup-img { background: var(--bg-gray); box-shadow: inset 0 2px 10px rgba(0,0,0,0.02); border: none; }
 
+        /* 底部三列网格 */
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; width: 100%; text-align: left; }
         .grid-item h4 { font-size: 17px; font-weight: 600; margin-bottom: 12px; color: #111;}
         .grid-item p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 0; }
 
+        /* --- 简历排版区 --- */
         .resume-section { max-width: 860px; width: 100%; margin: 40px auto 80px; text-align: left; padding: 0 24px;}
+        
         .resume-card {
             background: #ffffff; border: 1px solid var(--border-soft); border-radius: 24px;
             padding: 40px 48px;
@@ -123,26 +140,54 @@
 
         footer { background: var(--bg-gray); border-top: 1px solid var(--border-soft); padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray); }
 
+        /* 🔥 移动端专属适配 🔥 */
         @media (max-width: 768px) {
-            .hero h1 { font-size: clamp(24px, 8.5vw, 38px); white-space: nowrap; }
+            .hero h1 { 
+                font-size: clamp(24px, 8.5vw, 38px); 
+                white-space: nowrap; 
+            }
+            
             .hero h2 { font-size: 15px; line-height: 1.5; font-weight: 500; margin-bottom: 8px; }
             .hero p { font-size: 17px; margin-bottom: 60px; }
             .section-full-gray, .section-full-white { padding: 60px 0; }
             .project-title { font-size: 32px; }
             .grid-3 { grid-template-columns: 1fr; gap: 24px; }
             
-            .mockup-img { aspect-ratio: auto; min-height: auto; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
-            .mockup-img img { height: auto !important; }
-            #aifab-mockup { aspect-ratio: 21 / 9; overflow: hidden; }
-            #aifab-mockup img { height: 100% !important; object-fit: cover !important; }
+            /* 通用图片容器去边框 */
+            .mockup-img { 
+                aspect-ratio: auto; 
+                min-height: auto; 
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+            }
+            .mockup-img img {
+                height: auto !important;
+            }
+
+            /* 🌟 单独针对 aifab 动图裁掉原生黑边 🌟 */
+            #aifab-mockup {
+                aspect-ratio: 21 / 9; /* 强制在手机端也保持宽屏裁剪 */
+                overflow: hidden;
+            }
+            #aifab-mockup img {
+                height: 100% !important; /* 填满裁剪框 */
+                object-fit: cover !important;
+            }
 
             .resume-card { flex-direction: column; text-align: center; gap: 24px; padding: 40px 24px;}
             .btn-group { flex-direction: column; width: 100%; max-width: 300px;}
             .btn-primary, .btn-secondary { width: 100%; text-align: center;}
             .resume-item-header { flex-direction: column; gap: 4px; }
             .awards-grid { grid-template-columns: 1fr; }
-            .contact-info { flex-direction: column; gap: 12px; }
-            .contact-info span::after { display: none; }
+
+            .contact-info { 
+                flex-direction: column; 
+                gap: 12px; 
+            }
+            .contact-info span::after { 
+                display: none; 
+            }
         }
     </style>
 </head>
@@ -221,7 +266,7 @@
             <div class="grid-3 reveal" style="transition-delay: 0.2s;">
                 <div class="grid-item">
                     <h4>痛点挖掘与目标拆解</h4>
-                    <p>调研一线设计师的工作痛点，提炼出“成本”与“效率”的核心平衡点，明确了降低全生命周期流线总成本的优化北极星指标。</p>
+                    <p>调研一线设计师的工作痛点，提提炼出“成本”与“效率”的核心平衡点，明确了降低全生命周期流线总成本的优化北极星指标。</p>
                 </div>
                 <div class="grid-item">
                     <h4>注重技术可行性</h4>
@@ -266,6 +311,7 @@
     </section>
 
     <section id="resume" class="resume-section">
+        
         <div class="resume-card reveal">
             <div class="resume-card-info">
                 <h3>获取完整版图文简历</h3>
@@ -333,6 +379,7 @@
                 <p style="margin-top: 4px;">执行力强，具备跨职能沟通意识。能够将业务需求转化为清晰的技术语言，习惯用数据驱动决策，踏实推进复杂需求的落地。</p>
             </div>
         </div>
+
     </section>
 
     <footer>
@@ -346,7 +393,12 @@
         window.scrollTo(0, 0);
 
         document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -355,9 +407,14 @@
                     }
                 });
             }, observerOptions);
+
             const revealElements = document.querySelectorAll('.reveal');
-            revealElements.forEach(el => { observer.observe(el); });
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
         });
     </script>
 </body>
 </html>
+
+}
