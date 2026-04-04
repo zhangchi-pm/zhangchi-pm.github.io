@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDCA 自动化定投系统 - 独立全栈产品 | 张驰</title>
+    <style>
+        /* CSS 与前两页一模一样，完全保留 */
+        :root {
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --text-dark: #1d1d1f;
+            --text-gray: #86868b;
+            --bg-white: #ffffff;
+            --bg-gray: #f5f5f7;
+            --link-blue: #0066cc;
+            --border-soft: rgba(0,0,0,0.06);
+            --accent-soft: #f5f5f7;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            letter-spacing: -0.015em;
+            overflow-x: hidden;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); will-change: opacity, transform; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        nav { position: fixed; top: 0; width: 100%; height: 54px; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 1px 0 var(--border-soft); }
+        .nav-content { width: 100%; max-width: 960px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .nav-brand { font-size: 14px; font-weight: 500; color: var(--text-dark); text-decoration: none; display: flex; align-items: center;}
+        .nav-brand::before { content: "‹"; font-size: 20px; color: var(--text-gray); margin-right: 8px; margin-bottom: 2px;}
+
+        .hero { padding: 140px 20px 80px; text-align: center; max-width: 960px; margin: 0 auto; }
+        .hero h1 { font-size: 46px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 24px; color: #111;}
+        .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 680px; margin: 0 auto;}
+
+        .meta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 960px; margin: 0 auto 60px; padding: 32px 40px; background: #ffffff; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid var(--border-soft); text-align: left; }
+        .meta-item .label { font-size: 13px; color: var(--text-gray); margin-bottom: 6px; font-weight: 500;}
+        .meta-item .value { font-size: 15px; font-weight: 600; color: var(--text-dark);}
+
+        .article-section { width: 100%; padding: 100px 24px; }
+        .bg-gray-section { background-color: var(--bg-gray); }
+
+        .content-block { display: flex; gap: 40px; align-items: center; max-width: 960px; margin: 0 auto; width: 100%; }
+        .content-block.reverse { flex-direction: row-reverse; }
+        .content-block.vertical { flex-direction: column; align-items: center; gap: 40px; }
+        .content-block.vertical .text-side, .content-block.vertical .image-side { flex: none; width: 100%; }
+
+        .section-header { text-align: left; margin-bottom: 20px; }
+        .section-header .tag { font-size: 13px; font-weight: 600; color: var(--link-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; }
+        .section-header h2 { font-size: 30px; font-weight: 600; margin-bottom: 16px; letter-spacing: -0.01em; color: #111;}
+        
+        .text-side p { font-size: 16px; color: var(--text-dark); line-height: 1.7; margin-bottom: 16px; }
+        .text-side p strong { color: #111; font-weight: 600; }
+
+        .pm-card { background: #ffffff; padding: 20px 24px; border-radius: 16px; margin: 20px 0; border: 1px solid var(--border-soft); box-shadow: 0 8px 20px rgba(0,0,0,0.02); }
+        .pm-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--link-blue); }
+        .pm-card p { font-size: 14px; color: #444; margin-bottom: 8px; line-height: 1.6; }
+        .pm-card ul { list-style: none; margin-left: 0; }
+        .pm-card li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #444; line-height: 1.6;}
+        .pm-card li::before { content: "•"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
+
+        .pm-actions { background: var(--accent-soft); border-radius: 16px; padding: 20px 24px; margin-top: 24px; }
+        .pm-actions-white { background: #ffffff; border: 1px solid var(--border-soft); }
+        .pm-actions h4 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #111; display: flex; align-items: center;}
+        .pm-actions h4::before { content: ""; display: inline-block; width: 4px; height: 14px; background: var(--link-blue); border-radius: 2px; margin-right: 8px; }
+        .pm-actions ul { list-style: none; }
+        .pm-actions li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 14px; color: #555; line-height: 1.6; }
+        .pm-actions li::before { content: "-"; position: absolute; left: 0; color: var(--text-gray); font-weight: bold; }
+
+        .content-image { width: 100%; height: auto; border-radius: 24px; box-shadow: 0 12px 32px rgba(0,0,0,0.08); border: 1px solid var(--border-soft); display: block; }
+
+        .project-nav { max-width: 960px; margin: 80px auto 40px; padding: 0 24px; display: flex; justify-content: space-between; gap: 24px; }
+        .project-nav a { flex: 1; padding: 32px; background: var(--bg-gray); border-radius: 24px; text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; display: flex; flex-direction: column; border: 1px solid transparent; }
+        .project-nav a:hover { background: #ffffff; border-color: var(--border-soft); box-shadow: 0 12px 30px rgba(0,0,0,0.05); transform: translateY(-2px); }
+        .project-nav .nav-label { font-size: 13px; color: var(--text-gray); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        .project-nav .nav-title { font-size: 20px; font-weight: 600; color: var(--link-blue); }
+        .project-nav .next-project { text-align: right; }
+
+        footer { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray);}
+
+        @media (max-width: 768px) {
+            .hero { padding: 120px 20px 60px; }
+            .hero h1 { font-size: 32px; margin-bottom: 16px;}
+            .hero p { font-size: 16px; }
+            .meta-grid { grid-template-columns: 1fr; padding: 24px; gap: 16px; margin-bottom: 40px; border-radius: 16px;}
+            .content-block, .content-block.reverse, .content-block.vertical { flex-direction: column; gap: 32px; }
+            .article-section { padding: 60px 20px; }
+            .section-header h2 { font-size: 26px; }
+            .pm-card, .pm-actions { padding: 20px; }
+            .content-image { border-radius: 16px; }
+            .project-nav { flex-direction: column; margin-top: 40px; padding: 0 20px; gap: 16px;}
+            .project-nav a { padding: 24px; border-radius: 16px; }
+            .project-nav .next-project { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">返回</a>
+        </div>
+    </nav>
+
+    <header class="hero reveal">
+        <h1>AutoDCA 全自动量化定投系统</h1>
+        <p>针对传统金融软件“持仓成本失真”与“情绪干扰”的痛点，我利用 n8n 独立架构了一套脱机的全量化定投流水线。实现了从跨国数据抓取、动态算法核算、到多端战报推送的完整商业逻辑闭环。</p>
+    </header>
+
+    <div class="meta-grid reveal">
+        <div class="meta-item">
+            <div class="label">项目职责</div>
+            <div class="value">0-1 产品定义 / 全栈开发 / 算法优化</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">核心技术选型</div>
+            <div class="value">n8n / 飞书 Base / UptimeRobot</div>
+        </div>
+        <div class="meta-item">
+            <div class="label">当前状态</div>
+            <div class="value">实现 24h 零成本云端托管运行</div>
+        </div>
+    </div>
+
+    <section class="article-section reveal">
+        <div class="content-block vertical">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">0. 商业探索与需求验证</div>
+                    <h2>打破基金平台的数据滞后与算法黑盒</h2>
+                </div>
+                <p>在调研日常定投（DCA）行为时，我发现市面上的基金软件存在两个极其致命的体验断层：第一，QDII 基金存在 T+2 的净值滞后，用户无法获得实时的盘感反馈；第二，平台收益率算法各异且模糊，无法提供一条清晰、准确的“绝对平均持仓成本线”。</p>
+                <p><strong>产品重塑方案：</strong>我决定抛弃传统 App，利用 RPA 工具将底层数据所有权收回。以“绝对成本线”为锚，为用户建立屏蔽市场噪音的“投资钝感力”。</p>
+                
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>打通跨源融合数据链路，通过雅虎财经获取实时美股大盘，结合天天基金获取底层净值。</li>
+                        <li>规划以飞书多维表格作为云端数据库，实现时间序列的滚动回溯，摒弃繁杂图表，将高浓度的结果精炼推送。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <img src="N8N1.jpg" alt="业务洞察与痛点挖掘" class="content-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section bg-gray-section reveal">
+        <div class="content-block vertical">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">1. 业务流程与架构定义</div>
+                    <h2>用“工程兜底思维”应对真实金融环境</h2>
+                </div>
+                <p>搭建 n8n 流水线时，真正的挑战在于应对外部金融数据源的非标准反馈与极端场景。我设计了涵盖触发、抓取、拆包、核算的 6 段式容错工作流。</p>
+                
+                <div class="pm-card">
+                    <h4>产品决策：异常场景兜底机制 (Fallback Strategy)</h4>
+                    <p>面对飞书 API 深度嵌套且格式不一（文本/数组混合）的 JSON 数据，我手写 JS 降级函数，抹平了底层存储结构差异，保障核算流 100% 畅通。同时针对跨国时区差异做了专门处理。</p>
+                </div>
+
+                <div class="pm-actions pm-actions-white">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>梳理外部 API 异常边界，设计数据提取的万能解析函数，处理 Null/Array/String 混合态。</li>
+                        <li>重构 n8n 调度时间轴，精准匹配中美时差，实现“节假日自动休市”以规避周末冗余扣款。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <img src="N8N2.jpg" alt="异常场景兜底机制" class="content-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section reveal">
+        <div class="content-block vertical">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">2. 核心算法与时序校准</div>
+                    <h2>动态滚动加权与 T+0 数据解绑</h2>
+                </div>
+                <p>为了精准计算出那条能提供情绪价值的“灵魂成本线”，简单的均价逻辑是不够的。我在 Code 节点中实现了基于时间序列的动态份额累加模型，并做了极客级的时序优化。</p>
+
+                <div class="pm-actions">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li><strong>防乱序的时序强制校验：</strong>排查发现飞书 API 返回历史数据时存在偶发乱序，增设 localeCompare 强制时间流排序，确保每一分钱的时序准确性。</li>
+                        <li><strong>成本与大盘的 T+0 解绑：</strong>在容忍极小误差的前提下，产品策略上强制采用当日最新大盘点位锚定上一交易日净值。</li>
+                        <li><strong>情绪价值最大化：</strong>成功打破基金公司的结算滞后，让系统提前 24 小时向用户反馈真实大盘点位。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <img src="N8N3.jpg" alt="核心算法与时序校准" class="content-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="article-section bg-gray-section reveal">
+        <div class="content-block vertical">
+            <div class="text-side">
+                <div class="section-header">
+                    <div class="tag">3. 云端运维与 UX 触达设计</div>
+                    <h2>极低阅读门槛与高可用部署架构</h2>
+                </div>
+                <p>作为一套自动化系统，最终的交付界面就是那条每日推送的短消息。我将系统的最终触达形式做到了极简，并在部署层面实现了彻底的“脱机运行”。</p>
+
+                <div class="pm-card">
+                    <h4>部署与交互策略拆解：</h4>
+                    <ul>
+                        <li>免维护云端架构：将 n8n 整体环境迁移部署至 Hugging Face Spaces。</li>
+                        <li>引入 UptimeRobot 构建 5 分钟级心跳监控，对抗免费云容器强制休眠，实现零成本高可用。</li>
+                        <li>高转化信息排版：摒弃复杂的图表推送，通过 Webhook 接口将结果精炼为包含“最新点位、滚动成本、5日走势”的纯文本摘要。</li>
+                    </ul>
+                </div>
+
+                <div class="pm-actions pm-actions-white">
+                    <h4>执行细节 (What I Did)</h4>
+                    <ul>
+                        <li>配置 ServerChan 服务打通个人微信节点，完成 T+0 级战报秒级送达。</li>
+                        <li>确立“钝感力”产品调性，每日一条极简推送取代繁杂的金融 App 盯盘焦虑。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-side">
+                <img src="N8N4.jpg" alt="高可用部署架构" class="content-image">
+            </div>
+        </div>
+    </section>
+
+    <div class="project-nav reveal">
+        <a href="index.html">
+            <span class="nav-label">返回</span>
+            <span class="nav-title">主页 / 作品集</span>
+        </a>
+        <a href="snapcal.html" style="text-align: center;">
+            <span class="nav-label">项目案例 1</span>
+            <span class="nav-title">SnapCal知食分子</span>
+        </a>
+        <a href="aifab.html" class="next-project">
+            <span class="nav-label">项目案例 2</span>
+            <span class="nav-title">AI+半导体设计</span>
+        </a>
+    </div>
+
+    <footer>
+        <p>诚挚寻找 AI 产品实习机会，随时准备迎接新的挑战。</p>
+    </footer>
+
+    <script>
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); observer.unobserve(entry.target); } });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
