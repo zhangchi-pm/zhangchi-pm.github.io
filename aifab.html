@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI+半导体厂房设计 - B端算法产品 | 张驰</title>
     <style>
+        /* Apple-inspired Soft & Clean Design System */
         :root {
             --nav-bg: rgba(255, 255, 255, 0.85);
             --text-dark: #1d1d1f;
@@ -87,7 +88,6 @@
 
         footer { padding: 40px 20px; text-align: center; font-size: 13px; color: var(--text-gray);}
 
-        /* 🔥 移动端专属适配 🔥 */
         @media (max-width: 768px) {
             .hero { padding: 120px 20px 60px; }
             .hero h1 { font-size: 32px; margin-bottom: 16px;}
@@ -98,10 +98,15 @@
             .section-header h2 { font-size: 26px; }
             .pm-card, .pm-actions { padding: 20px; }
             .content-image { border-radius: 16px; }
-
-            /* 手机端导航适配：强制文本靠左 */
             .project-nav { flex-direction: column; margin-top: 40px; padding: 0 20px; gap: 16px;}
-            .project-nav a { padding: 24px; border-radius: 16px; text-align: left !important; }
+            
+            /* 🔥 在手机端强制所有底部按钮文字靠左对齐 🔥 */
+            .project-nav a { 
+                padding: 24px; 
+                border-radius: 16px; 
+                text-align: left !important; 
+                align-items: flex-start !important; 
+            }
         }
     </style>
 </head>
@@ -242,11 +247,11 @@
             <span class="nav-label">返回</span>
             <span class="nav-title">主页 / 作品集</span>
         </a>
-        <a href="snapcal.html" style="text-align: center;">
+        <a href="snapcal.html">
             <span class="nav-label">项目案例 1</span>
             <span class="nav-title">SnapCal知食分子</span>
         </a>
-        <a href="autodca.html" class="next-project">
+        <a href="autodca.html">
             <span class="nav-label">项目案例 3</span>
             <span class="nav-title">AutoDCA定投</span>
         </a>
