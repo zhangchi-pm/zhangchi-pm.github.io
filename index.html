@@ -102,7 +102,10 @@
         .grid-item p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 0; }
 
         /* --- 简历排版区 --- */
-        .resume-section { max-width: 860px; width: 100%; margin: 40px auto 80px; text-align: left; padding: 0 24px;}
+        .resume-section { 
+            max-width: 860px; width: 100%; margin: 40px auto 80px; text-align: left; padding: 0 24px;
+            scroll-margin-top: 80px;
+        }
         
         .resume-card {
             background: #ffffff; border: 1px solid var(--border-soft); border-radius: 24px;
@@ -159,7 +162,7 @@
             <a href="#" class="nav-brand">张驰的实习申请</a>
             <div class="nav-indexes">
                 <a href="#projects">项目案例</a>
-                <a href="#resume">在线简历</a>
+                <a href="#resume" style="background: #111; color: #fff; border-radius: 14px; font-weight: 600;">在线简历</a>
             </div>
         </div>
     </nav>
@@ -170,7 +173,7 @@
         <h2>我是张驰，天津大学建筑学院数字化所本硕<br>兼具工程拆解能力与商业直觉，擅长在资源约束下完成 0-1 商业闭环</h2>
         
         <div class="job-intent">
-            求职意向：产品经理实习 | 坐标：北京/上海 | 到岗：2026年6月  | 时长：6个月以上
+            求职意向：产品经理实习 | 坐标：北京/上海 | 到岗：2026年6月 | 时长：6个月以上
         </div>
 
         <div class="btn-group">
@@ -279,10 +282,45 @@
         
         <div class="resume-card reveal">
             <div class="resume-card-info">
-                <h3>获取完整版图文简历</h3>
-                <p>内含排版精美的个人介绍与更多细节</p>
+                <h3>离线版简历</h3>
+                <p>适合存档与分享，包含排版精美的图文细节</p>
             </div>
             <a href="resume.jpg" target="_blank" class="btn-primary">查看图片简历</a>
+        </div>
+
+        <div class="resume-block reveal">
+            <h3>教育背景</h3>
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <div class="resume-item-title">天津大学 (985) · 建筑 (专硕/推免) <span style="margin-left:12px; font-weight:normal; color:var(--text-gray);">党支部书记</span></div>
+                    <div class="resume-item-date">2025.09 - 至今</div>
+                </div>
+                <p><strong>研究方向：</strong>数字化设计（生成式设计、交互设计、智能建造）</p>
+                <p><strong>主修课程：</strong>Python 编程基础、数据分析与挖掘、算法与应用</p>
+            </div>
+            
+            <div class="resume-item">
+                <div class="resume-item-header">
+                    <div class="resume-item-title">天津大学 (985) · 建筑学 (本科) <span style="margin-left:12px; font-weight:normal; color:var(--text-gray);">班长</span></div>
+                    <div class="resume-item-date">2020.09 - 2025.06</div>
+                </div>
+                <p><strong>成绩情况：</strong>GPA 3.86/4.00 (加权 90.52/100)</p>
+                
+                <div class="awards-container">
+                    <div class="awards-title">获得荣誉与奖励</div>
+                    <div class="awards-grid">
+                        <span class="award-item">本科生国家奖学金</span>
+                        <span class="award-item">本科生国家励志奖学金</span>
+                        <span class="award-item">天津大学三好学生</span>
+                        <span class="award-item">天津大学优秀共青团干部</span>
+                        <span class="award-item">天津大学优秀共青团员</span>
+                        <span class="award-item">天津大学学习优异先进个人</span>
+                        <span class="award-item">天津大学优秀学生代表先进个人</span>
+                        <span class="award-item">建筑学院优异生</span>
+                        <span class="award-item">建筑学院优秀毕业生</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="resume-block reveal">
@@ -312,41 +350,6 @@
                 </div>
                 <p><strong>项目描述：</strong>针对散户投资中的情绪干扰与平台数据滞后痛点，主导架构脱机全量化定投系统。</p>
                 <p><strong>核心成果：</strong>基于 n8n 与 GLM 大模型构建 Serverless 自动化流水线，实现行情智能清洗与战报实时生成；攻克跨网代理网络屏障，实现零预算下 T+0 企业级工作流自动化播报。</p>
-            </div>
-        </div>
-
-        <div class="resume-block reveal">
-            <h3>教育背景</h3>
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <div class="resume-item-title">天津大学 (985) · 建筑 (专硕/推免)</div>
-                    <div class="resume-item-date">2025.09 - 至今</div>
-                </div>
-                <p><strong>研究方向：</strong>数字化设计（生成式设计、交互设计、智能建造）</p>
-                <p><strong>主修课程：</strong>Python 编程基础、数据分析与挖掘、算法与应用</p>
-            </div>
-            
-            <div class="resume-item">
-                <div class="resume-item-header">
-                    <div class="resume-item-title">天津大学 (985) · 建筑学 (本科)</div>
-                    <div class="resume-item-date">2020.09 - 2025.06</div>
-                </div>
-                <p><strong>成绩情况：</strong>GPA 3.86/4.00 (加权 90.52/100)</p>
-                
-                <div class="awards-container">
-                    <div class="awards-title">获得荣誉与奖励</div>
-                    <div class="awards-grid">
-                        <span class="award-item">本科生国家奖学金</span>
-                        <span class="award-item">本科生国家励志奖学金</span>
-                        <span class="award-item">天津大学三好学生</span>
-                        <span class="award-item">天津大学优秀共青团干部</span>
-                        <span class="award-item">天津大学优秀共青团员</span>
-                        <span class="award-item">天津大学学习优异先进个人</span>
-                        <span class="award-item">天津大学优秀学生代表先进个人</span>
-                        <span class="award-item">建筑学院优异生</span>
-                        <span class="award-item">建筑学院优秀毕业生</span>
-                    </div>
-                </div>
             </div>
         </div>
 
