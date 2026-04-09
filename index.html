@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>张驰 | 产品经理实习求职</title>
+    <title>张驰 | AI 产品经理实习求职</title>
     <style>
         /* Apple-inspired Soft & Clean Design System */
         :root {
@@ -59,6 +59,7 @@
         
         /* 间距控制 */
         .hero p { font-size: 20px; color: var(--text-gray); line-height: 1.5; max-width: 680px; margin: 0 auto 120px;}
+        .hero h2 { font-size: 18px; line-height: 1.6; font-weight: 500; color: var(--text-gray); max-width: 720px; margin-bottom: 40px;}
         
         /* 按钮系统 */
         .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 48px;}
@@ -206,10 +207,10 @@
     <section class="hero">
         <div class="hero-tag">AI Product Manager Intern</div>
         <h1>设计出身，算法加持。</h1>
-        <h2>我是张驰，天津大学建筑学院数字化所本硕<br>兼具工程思维与产品直觉，期待能为团队带来扎实的执行力与业务价值</h2>
+        <h2>我是张驰，天津大学建筑学院数字化所本硕<br>兼具工程拆解能力与商业直觉，擅长在资源约束下完成 0-1 商业闭环</h2>
         <h2><br></h2>
         <div class="btn-group">
-            <a href="#projects" class="btn-primary">浏览项目经历</a>
+            <a href="#projects" class="btn-primary">浏览核心项目</a>
             <a href="#resume" class="btn-secondary">查看在线简历</a>
         </div>
 
@@ -223,10 +224,10 @@
     <section id="projects" class="section-full-gray">
         <div class="project-content">
             <div class="project-header reveal">
-                <div class="project-role">独立开发与产品策划 / 2026.03</div>
-                <h2 class="project-title">SnapCal (知食分子)</h2>
-                <p class="project-desc">一款基于视觉大模型的智能饮食管家。探索将繁琐的传统饮食记录缩短至一键拍照，致力于大幅降低用户的记账门槛。</p>
-                <a href="snapcal.html" class="learn-more">阅读完整复盘与架构逻辑</a>
+                <div class="project-role">0-1 产品落地与业务容错兜底 / 2026.03</div>
+                <h2 class="project-title">SnapCal</h2>
+                <p class="project-desc">一款基于视觉大模型 (VLM) 的智能饮食管家。通过平衡大模型算力成本与用户体验，将繁琐的记账流线缩短至一键拍照，致力于大幅降低用户的健康管理执行阻力。</p>
+                <a href="snapcal.html" class="learn-more">阅读完整商业复盘与架构逻辑</a>
             </div>
 
             <div class="mockup-img reveal" style="transition-delay: 0.1s; padding: 0; border: none;">
@@ -235,16 +236,16 @@
 
             <div class="grid-3 reveal" style="transition-delay: 0.2s;">
                 <div class="grid-item">
-                    <h4>0-1 产品落地与异常兜底</h4>
-                    <p>独立完成产品需求抽象与前后端全栈开发。针对图像识别可能失败的极端场景，设计了严密的降级录入方案，确保核心业务流在异常情况下依然畅通。</p>
+                    <h4>构建模型容错兜底机制</h4>
+                    <p>直面 VLM 输出的不确定性，设计“正则清洗-暴力提取-人在回路”四级降级方案，确保 API 波动时核心记账流线依然 100% 畅通落地。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>精细化策略干预</h4>
-                    <p>构建基于用户 TDEE 的动态结算模型。设计 4 个容错阶梯，根据额度下发“居家自炊”与“外卖精选”策略，尝试打通从记录到指导的业务闭环。</p>
+                    <h4>阶梯化商业变现策略</h4>
+                    <p>抛弃单一收费模式，以极简 AI 识别作为高频流量入口，并在产品路径中引导至定制化营养师报告与电商推荐，搭建完整的 SaaS 变现漏斗。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>体验最低门槛化</h4>
-                    <p>巨型拍照按钮主导核心流线，结合本地直录功能（如喝水打卡），既提供了即时的正反馈动效，又大幅节省了云端 Token 成本。</p>
+                    <h4>高频场景的体验降本</h4>
+                    <p>巨型按钮强干预录入流线。剥离喝水、加餐等高频标准化动作，采用前端本地纯代码直录，规避不必要的云端 VLM 调用，实现体验与 API 成本的双赢。</p>
                 </div>
             </div>
         </div>
@@ -253,10 +254,10 @@
     <section class="section-full-white">
         <div class="project-content">
             <div class="project-header reveal">
-                <div class="project-role">产品核心执行 / 2025.09 - 2026.01</div>
+                <div class="project-role">B端辅助决策工具 / 核心业务流抽象 / 2025.09 - 2026.01</div>
                 <h2 class="project-title">AI+半导体厂房设计</h2>
-                <p class="project-desc">一款尝试提升传统厂房布局效率的辅助决策工具。通过引入运筹优化算法，将方案产出周期从数天优化至数小时。</p>
-                <a href="aifab.html" class="learn-more">探索背后的运筹推演</a>
+                <p class="project-desc">一款大幅提升传统厂房布局效率的 B 端赋能工具。通过引入底层运筹优化算法，将复杂的建筑设计转化为数学求最优解问题，把交付排期从数天级压缩至小时级。</p>
+                <a href="aifab.html" class="learn-more">探索背后的算法选型与业务推演</a>
             </div>
 
             <div id="aifab-mockup" class="mockup-img reveal" style="transition-delay: 0.1s; padding: 0; border: none;">
@@ -265,16 +266,16 @@
 
             <div class="grid-3 reveal" style="transition-delay: 0.2s;">
                 <div class="grid-item">
-                    <h4>痛点挖掘与目标拆解</h4>
-                    <p>调研一线设计师的工作痛点，提提炼出“成本”与“效率”的核心平衡点，明确了降低全生命周期流线总成本的优化北极星指标。</p>
+                    <h4>确立业务北极星指标</h4>
+                    <p>深度调研一线设计师的痛点，将模糊的建厂需求结构化抽象，确立了“全生命周期运营流线成本最低”的产品终极优化目标。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>注重技术可行性</h4>
-                    <p>结合真实的业务诉求，协助团队引入曼哈顿距离与垂直惩罚系数，确保底层算法选型能真实解决跨楼层物流成本的痛点。</p>
+                    <h4>算法选型的商业 Trade-off</h4>
+                    <p>为追求真实落地可行性，果断放弃低算力的纯直线测算，引入贴合工业物流阻力的曼哈顿距离与跨楼层垂直惩罚系数。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>AIGC 商业闭环</h4>
-                    <p>打通从抽象算法数据到 Stable Diffusion 高保真视觉表现的工作链路。一键渲染建筑效果图，提升前端竞标时的直观说服力。</p>
+                    <h4>AIGC 赋能前端商业竞标</h4>
+                    <p>打通从抽象纯色块数据到 Stable Diffusion 高保真渲染的完整流水线，大幅降低前期销售与甲方的沟通摩擦，直接赋能方案转化。</p>
                 </div>
             </div>
         </div>
@@ -283,10 +284,10 @@
     <section class="section-full-gray">
         <div class="project-content">
             <div class="project-header reveal">
-                <div class="project-role">AI 产品架构与全栈开发 / 2026.04</div>
+                <div class="project-role">0-1 商业闭环与极低成本资源统筹 / 2026.04</div>
                 <h2 class="project-title">AutoDCA 智能量化定投系统</h2>
-                <p class="project-desc">针对传统金融软件“持仓成本失真”的痛点，利用 n8n 与智谱 AI 大模型独立架构的 Serverless 智能定投流水线。实现从跨源数据融合、大模型清洗到多端战报推送的完整商业闭环。</p>
-                <a href="autodca.html" class="learn-more">探索大模型赋能与 Serverless 架构逻辑</a>
+                <p class="project-desc">一款为消除散户“盯盘内耗”而生的财务基建产品。在零预算约束下，主导架构了基于 n8n 与智谱大模型的 Serverless 流水线，跑通跨平台融合到企业级播报的完整逻辑。</p>
+                <a href="autodca.html" class="learn-more">探索大模型降级清洗与零成本架构</a>
             </div>
 
             <div class="mockup-img reveal" style="transition-delay: 0.1s; padding: 0; border: none;">
@@ -295,16 +296,16 @@
 
             <div class="grid-3 reveal" style="transition-delay: 0.2s;">
                 <div class="grid-item">
-                    <h4>跨源融合与 AI 大模型赋能</h4>
-                    <p>打通新浪财经与天天基金 API，创新性接入智谱 AI 大模型 (GLM) 进行异构金融数据的智能清洗与摘要提取。利用 Prompt 工程约束输出标准 JSON，保障下游业务流 100% 畅通。</p>
+                    <h4>情绪价值洞察与 AI 降维</h4>
+                    <p>敏锐捕捉平台滞后引发的“盲盒焦虑”。通过跨平台聚合独立数据权，并接入大模型 (GLM) 将枯燥的异构 K 线清洗、翻译为极简投资摘要。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>容错工程与时序校准</h4>
-                    <p>设计涵盖“触发-大模型解析-核算”的复杂容错流。手写降级函数抹平结构差异，并利用强制时序校验解决接口乱序，成功打破资产结算滞后，提前 24 小时提供真实大盘反馈。</p>
+                    <h4>企业级容错流与体验解绑</h4>
+                    <p>手写降级策略应对 API 高频波动。在产品策略上通过强制锚定最新大盘点位，打破基金公司的结算滞后，提前 24 小时向用户反馈真实账户盈亏。</p>
                 </div>
                 <div class="grid-item">
-                    <h4>Serverless 零成本高可用部署</h4>
-                    <p>将系统全量迁移至 Hugging Face 容器，独立攻克 IPv4/IPv6 跨网桥接、Session Pooler 与 SSL 证书强校验等底层网络难题，实现彻底脱机、免维护的 24h 云端自动化运行。</p>
+                    <h4>零成本统筹与工作流触达</h4>
+                    <p>在严苛预算限制下，统筹 Hugging Face 容器资源攻克跨网代理底层屏障，并打通飞书 (Lark) 机器人节点，实现 T+0 战报的自动化企业级群播报。</p>
                 </div>
             </div>
         </div>
@@ -367,16 +368,16 @@
         <div class="resume-block reveal">
             <h3>个人优势</h3>
             <div class="resume-item">
-                <div class="resume-item-title">技术视角的跨界学习者</div>
-                <p style="margin-top: 4px;">拥有参数化设计背景与全栈开发实践，具备良好的工程思维。能够顺畅地与研发团队对接，协助评估技术可行性，避免脱离实际的过度设计。</p>
+                <div class="resume-item-title">具备系统性的工程拆解与 Trade-off 能力</div>
+                <p style="margin-top: 4px;">得益于建筑设计背景与全栈开发实践，习惯于在复杂的资源约束（体验、成本、技术边界）下寻找最优产品解。能够顺畅对接研发团队，拒绝脱离实际的过度设计。</p>
             </div>
             <div class="resume-item">
-                <div class="resume-item-title">AIGC 的深度实践者</div>
-                <p style="margin-top: 4px;">习惯用技术手段优化工作流，熟练运用各类 AI 工具解决实际问题，并在过往项目中成功将大模型引入产品闭环。</p>
+                <div class="resume-item-title">AIGC 的深度产品化落地者</div>
+                <p style="margin-top: 4px;">不仅停留在工具层面，更致力于大模型能力的商业化收敛。在过往独立项目中，熟练将 VLM 视觉大模型、生成式渲染等技术成功封装入产品闭环。</p>
             </div>
             <div class="resume-item">
                 <div class="resume-item-title">扎实的结果导向执行者</div>
-                <p style="margin-top: 4px;">执行力强，具备跨职能沟通意识。能够将业务需求转化为清晰的技术语言，习惯用数据驱动决策，踏实推进复杂需求的落地。</p>
+                <p style="margin-top: 4px;">拥有 0 到 1 的项目统筹经验，执行力强。能够将模糊的业务需求转化为结构化的 PRD 与技术语言，习惯用数据与量化指标驱动决策。</p>
             </div>
         </div>
 
@@ -416,5 +417,3 @@
     </script>
 </body>
 </html>
-
-}
